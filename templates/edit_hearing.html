@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Hearing - Legal Case Tracker</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f6fa;
+        }
+
+        h1 {
+            color: #1f2937;
+        }
+
+        h2 {
+            color: #374151;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            background-color: #6b7280;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+        }
+
+        .cancel-button:hover {
+            background-color: #4b5563;
+        }
+
+        .message {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Legal Case Tracker</h1>
+
+    <h2>Edit Hearing</h2>
+
+
+    {% if message %}
+
+    <div class="message">
+        {{ message }}
+    </div>
+
+    {% endif %}
+
+
+    <div class="form-container">
+
+        <form
+            method="POST"
+            action="{{ url_for('edit_hearing', hearing_id=hearing.id) }}"
+        >
+
+            <!-- CASE -->
+
+            <label for="case_id">
+                Select Case:
+            </label>
+
+            <select
+                id="case_id"
+                name="case_id"
+                required
+            >
+
+                <option value="">
+                    -- Select Case --
+                </option>
+
+                {% for case in cases %}
+
+                <option
+                    value="{{ case.id }}"
+                    {% if case.id == hearing.case_id %}
+                        selected
+                    {% endif %}
+                >
+                    {{ case.case_number }} - {{ case.title }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- HEARING DATE -->
+
+            <label for="hearing_date">
+                Hearing Date:
+            </label>
+
+            <input
+                type="date"
+                id="hearing_date"
+                name="hearing_date"
+                value="{{ hearing.hearing_date }}"
+                required
+            >
+
+
+            <!-- COURT -->
+
+            <label for="court">
+                Court:
+            </label>
+
+            <input
+                type="text"
+                id="court"
+                name="court"
+                value="{{ hearing.court or '' }}"
+            >
+
+
+            <!-- JUDGE -->
+
+            <label for="judge">
+                Judge:
+            </label>
+
+            <input
+                type="text"
+                id="judge"
+                name="judge"
+                value="{{ hearing.judge or '' }}"
+            >
+
+
+            <!-- HEARING TYPE -->
+
+            <label for="hearing_type">
+                Hearing Type:
+            </label>
+
+            <select
+                id="hearing_type"
+                name="hearing_type"
+            >
+
+                <option
+                    value="Regular"
+                    {% if hearing.hearing_type == "Regular" %}
+                        selected
+                    {% endif %}
+                >
+                    Regular Hearing
+                </option>
+
+                <option
+                    value="Final"
+                    {% if hearing.hearing_type == "Final" %}
+                        selected
+                    {% endif %}
+                >
+                    Final Hearing
+                </option>
+
+                <option
+                    value="Evidence"
+                    {% if hearing.hearing_type == "Evidence" %}
+                        selected
+                    {% endif %}
+                >
+                    Evidence
+                </option>
+
+                <option
+                    value="Arguments"
+                    {% if hearing.hearing_type == "Arguments" %}
+                        selected
+                    {% endif %}
+                >
+                    Arguments
+                </option>
+
+                <option
+                    value="Other"
+                    {% if hearing.hearing_type == "Other" %}
+                        selected
+                    {% endif %}
+                >
+                    Other
+                </option>
+
+            </select>
+
+
+            <!-- PURPOSE -->
+
+            <label for="purpose">
+                Purpose:
+            </label>
+
+            <textarea
+                id="purpose"
+                name="purpose"
+                rows="4"
+            >{{ hearing.purpose or '' }}</textarea>
+
+
+            <!-- STATUS -->
+
+            <label for="status">
+                Status:
+            </label>
+
+            <select
+                id="status"
+                name="status"
+            >
+
+                <option
+                    value="Scheduled"
+                    {% if hearing.status == "Scheduled" %}
+                        selected
+                    {% endif %}
+                >
+                    Scheduled
+                </option>
+
+                <option
+                    value="Completed"
+                    {% if hearing.status == "Completed" %}
+                        selected
+                    {% endif %}
+                >
+                    Completed
+                </option>
+
+                <option
+                    value="Adjourned"
+                    {% if hearing.status == "Adjourned" %}
+                        selected
+                    {% endif %}
+                >
+                    Adjourned
+                </option>
+
+                <option
+                    value="Cancelled"
+                    {% if hearing.status == "Cancelled" %}
+                        selected
+                    {% endif %}
+                >
+                    Cancelled
+                </option>
+
+            </select>
+
+
+            <!-- NOTES -->
+
+            <label for="notes">
+                Notes:
+            </label>
+
+            <textarea
+                id="notes"
+                name="notes"
+                rows="5"
+            >{{ hearing.notes or '' }}</textarea>
+
+
+            <!-- BUTTONS -->
+
+            <button type="submit">
+                Save Changes
+            </button>
+
+            <a
+                href="{{ url_for('hearings') }}"
+                class="cancel-button"
+            >
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <a
+        class="back"
+        href="{{ url_for('dashboard') }}"
+    >
+        ← Back to Dashboard
+    </a>
+
+</body>
+
+</html>

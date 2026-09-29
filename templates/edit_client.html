@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Client - Legal Case Tracker</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f6fa;
+        }
+
+        h1 {
+            color: #1f2937;
+        }
+
+        h2 {
+            color: #374151;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #374151;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            background-color: #6b7280;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+        }
+
+        .cancel-button:hover {
+            background-color: #4b5563;
+        }
+
+        .message {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Legal Case Tracker</h1>
+
+    <h2>Edit Client</h2>
+
+
+    {% if message %}
+
+    <div class="message">
+        {{ message }}
+    </div>
+
+    {% endif %}
+
+
+    <div class="form-container">
+
+        <form
+            method="POST"
+            action="{{ url_for('edit_client', client_id=client.id) }}"
+        >
+
+            <!-- CLIENT NAME -->
+
+            <label for="name">
+                Client Name:
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ client.name }}"
+                required
+            >
+
+
+            <!-- EMAIL -->
+
+            <label for="email">
+                Email:
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ client.email or '' }}"
+            >
+
+
+            <!-- PHONE -->
+
+            <label for="phone">
+                Phone:
+            </label>
+
+            <input
+                type="text"
+                id="phone"
+                name="phone"
+                value="{{ client.phone or '' }}"
+            >
+
+
+            <!-- ADDRESS -->
+
+            <label for="address">
+                Address:
+            </label>
+
+            <textarea
+                id="address"
+                name="address"
+                rows="5"
+            >{{ client.address or '' }}</textarea>
+
+
+            <!-- BUTTONS -->
+
+            <button type="submit">
+                Save Changes
+            </button>
+
+            <a
+                href="{{ url_for('clients') }}"
+                class="cancel-button"
+            >
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <a
+        class="back"
+        href="{{ url_for('dashboard') }}"
+    >
+        ← Back to Dashboard
+    </a>
+
+</body>
+
+</html>

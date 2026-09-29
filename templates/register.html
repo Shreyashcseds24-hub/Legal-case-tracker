@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Legal Case Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* LEFT HERO SECTION */
+        .hero {
+            width: 52%;
+            min-height: 100vh;
+            background:
+                linear-gradient(135deg, #071a33 0%, #0d2d55 55%, #123e70 100%);
+            color: white;
+            padding: 55px 65px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            right: -150px;
+            top: -100px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 50%;
+            left: -120px;
+            bottom: -100px;
+        }
+
+        .brand {
+            position: absolute;
+            top: 35px;
+            left: 65px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2;
+        }
+
+        .brand-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #c79a55;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            color: #071a33;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 570px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.12;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #d5a762;
+        }
+
+        .hero-description {
+            color: #d7e2ef;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 18px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+        }
+
+        .feature-icon {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .feature p {
+            color: #b8c7d9;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* RIGHT REGISTER SECTION */
+        .register-section {
+            width: 48%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: #f7f9fc;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 42px;
+            border-radius: 22px;
+            box-shadow: 0 18px 55px rgba(7, 26, 51, 0.12);
+            border: 1px solid #e7ebf2;
+        }
+
+        .register-header {
+            margin-bottom: 30px;
+        }
+
+        .register-header h2 {
+            color: #071a33;
+            font-size: 30px;
+            margin-bottom: 9px;
+        }
+
+        .register-header p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #26364a;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d8dee8;
+            border-radius: 10px;
+            background: #fbfcfe;
+            color: #1f2937;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2867a6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(40,103,166,0.10);
+        }
+
+        .register-button {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            background: #0b315d;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        .register-button:hover {
+            background: #174d82;
+            transform: translateY(-1px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .login-link a {
+            color: #0b4f8a;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .security-note {
+            margin-top: 24px;
+            padding: 12px 14px;
+            background: #f8f4ec;
+            border-left: 4px solid #c79a55;
+            border-radius: 8px;
+            color: #665334;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 18px;
+            right: 25px;
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 950px) {
+            .page {
+                flex-direction: column;
+            }
+
+            .hero,
+            .register-section {
+                width: 100%;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 100px 35px 50px;
+            }
+
+            .register-section {
+                min-height: auto;
+                padding: 40px 20px;
+            }
+
+            .brand {
+                left: 35px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .footer {
+                position: static;
+                text-align: center;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .hero {
+                padding: 90px 25px 40px;
+            }
+
+            .brand {
+                left: 25px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .register-card {
+                padding: 28px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="brand">
+            <div class="brand-icon">⚖</div>
+
+            <div class="brand-name">
+                Legal Case Tracker
+            </div>
+        </div>
+
+        <div class="hero-content">
+
+            <div class="badge">
+                Secure Legal Workspace
+            </div>
+
+            <h1>
+                Create your
+                <span>legal workspace.</span>
+            </h1>
+
+            <p class="hero-description">
+                Manage clients, cases, hearings and legal documents
+                from one secure and organized platform.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    <div class="feature-icon">👤</div>
+
+                    <h3>
+                        Client Management
+                    </h3>
+
+                    <p>
+                        Keep client information organized and easily accessible.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📁</div>
+
+                    <h3>
+                        Case Tracking
+                    </h3>
+
+                    <p>
+                        Track case details, status, courts and important information.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">⚖️</div>
+
+                    <h3>
+                        Hearing Management
+                    </h3>
+
+                    <p>
+                        Manage upcoming hearings, judges and hearing status.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+
+                    <h3>
+                        Secure Access
+                    </h3>
+
+                    <p>
+                        Your account is protected with secure password hashing.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- REGISTER -->
+    <section class="register-section">
+
+        <div class="register-card">
+
+            <div class="register-header">
+
+                <h2>
+                    Create Account
+                </h2>
+
+                <p>
+                    Enter your details to create your Legal Case Tracker account.
+                </p>
+
+            </div>
+
+
+            <form method="POST" action="{{ url_for('register') }}">
+
+                <!-- NAME -->
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ROLE -->
+                <div class="form-group">
+
+                    <label for="role">
+                        Role
+                    </label>
+
+                    <select
+                        id="role"
+                        name="role"
+                        required
+                    >
+
+                        <option value="lawyer">
+                            Lawyer
+                        </option>
+
+                        <option value="staff">
+                            Staff
+                        </option>
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BUTTON -->
+                <button
+                    type="submit"
+                    class="register-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div class="security-note">
+                🔐 Your password is securely hashed before it is stored in the database.
+            </div>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Login here
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Case - Legal Case Tracker</title>
+
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f6fa;
+            color: #1f2937;
+        }
+
+
+        .header {
+            background-color: #1f2937;
+            color: white;
+
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+
+        .header h1 {
+            margin: 0;
+        }
+
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        .container {
+            max-width: 900px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+
+        .form-container {
+            background-color: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+
+        h2 {
+            margin-top: 0;
+
+            color: #374151;
+        }
+
+
+        label {
+            display: block;
+
+            margin-top: 15px;
+
+            margin-bottom: 5px;
+
+            font-weight: bold;
+        }
+
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 10px;
+
+            box-sizing: border-box;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 6px;
+        }
+
+
+        textarea {
+            resize: vertical;
+        }
+
+
+        .message {
+
+            background-color: #fee2e2;
+
+            color: #991b1b;
+
+            padding: 12px;
+
+            border-radius: 6px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .buttons {
+
+            margin-top: 25px;
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            padding: 12px 20px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            color: white;
+
+            text-decoration: none;
+
+            margin-right: 10px;
+        }
+
+
+        .save-button {
+
+            background-color: #2563eb;
+        }
+
+
+        .save-button:hover {
+
+            background-color: #1d4ed8;
+        }
+
+
+        .cancel-button {
+
+            background-color: #374151;
+        }
+
+
+        .cancel-button:hover {
+
+            background-color: #111827;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 20px;
+            }
+
+            .nav {
+                margin-top: 15px;
+            }
+
+            .nav a {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+
+            .container {
+                margin-top: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <div class="header">
+
+
+        <h1>
+            Legal Case Tracker
+        </h1>
+
+
+        <div class="nav">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/clients">
+                Clients
+            </a>
+
+            <a href="/cases">
+                Cases
+            </a>
+
+            <a href="/hearings">
+                Hearings
+            </a>
+
+            <a href="/documents">
+                Documents
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================================= -->
+
+    <div class="container">
+
+
+        <div class="form-container">
+
+
+            <h2>
+                Edit Case
+            </h2>
+
+
+            {% if message %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+            {% endif %}
+
+
+            <form
+                method="POST"
+                action="{{ url_for('edit_case', case_id=case.id) }}"
+            >
+
+
+                <!-- CASE NUMBER -->
+
+                <label for="case_number">
+                    Case Number:
+                </label>
+
+
+                <input
+                    type="text"
+                    id="case_number"
+                    name="case_number"
+                    value="{{ case.case_number }}"
+                    required
+                >
+
+
+                <!-- CNR NUMBER -->
+
+                <label for="cnr_number">
+                    CNR Number:
+                </label>
+
+
+                <input
+                    type="text"
+                    id="cnr_number"
+                    name="cnr_number"
+                    value="{{ case.cnr_number or '' }}"
+                >
+
+
+                <!-- TITLE -->
+
+                <label for="title">
+                    Case Title:
+                </label>
+
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="{{ case.title }}"
+                    required
+                >
+
+
+                <!-- CASE TYPE -->
+
+                <label for="case_type">
+                    Case Type:
+                </label>
+
+
+                <input
+                    type="text"
+                    id="case_type"
+                    name="case_type"
+                    value="{{ case.case_type or '' }}"
+                >
+
+
+                <!-- COURT -->
+
+                <label for="court">
+                    Court:
+                </label>
+
+
+                <input
+                    type="text"
+                    id="court"
+                    name="court"
+                    value="{{ case.court or '' }}"
+                >
+
+
+                <!-- FILING DATE -->
+
+                <label for="filing_date">
+                    Filing Date:
+                </label>
+
+
+                <input
+                    type="date"
+                    id="filing_date"
+                    name="filing_date"
+                    value="{{ case.filing_date }}"
+                >
+
+
+                <!-- STATUS -->
+
+                <label for="status">
+                    Status:
+                </label>
+
+
+                <select
+                    id="status"
+                    name="status"
+                >
+
+                    <option
+                        value="Pending"
+                        {% if case.status == "Pending" %}
+                        selected
+                        {% endif %}
+                    >
+                        Pending
+                    </option>
+
+
+                    <option
+                        value="Active"
+                        {% if case.status == "Active" %}
+                        selected
+                        {% endif %}
+                    >
+                        Active
+                    </option>
+
+
+                    <option
+                        value="Closed"
+                        {% if case.status == "Closed" %}
+                        selected
+                        {% endif %}
+                    >
+                        Closed
+                    </option>
+
+                </select>
+
+
+                <!-- CLIENT -->
+
+                <label for="client_id">
+                    Select Client:
+                </label>
+
+
+                <select
+                    id="client_id"
+                    name="client_id"
+                    required
+                >
+
+
+                    {% for client in clients %}
+
+
+                    <option
+                        value="{{ client.id }}"
+                        {% if client.id == case.client_id %}
+                        selected
+                        {% endif %}
+                    >
+
+                        {{ client.name }}
+
+                    </option>
+
+
+                    {% endfor %}
+
+
+                </select>
+
+
+                <!-- DESCRIPTION -->
+
+                <label for="description">
+                    Description:
+                </label>
+
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="6"
+                >{{ case.description or '' }}</textarea>
+
+
+                <!-- BUTTONS -->
+
+                <div class="buttons">
+
+
+                    <button
+                        type="submit"
+                        class="button save-button"
+                    >
+                        Save Changes
+                    </button>
+
+
+                    <a
+                        href="{{ url_for('cases') }}"
+                        class="button cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
